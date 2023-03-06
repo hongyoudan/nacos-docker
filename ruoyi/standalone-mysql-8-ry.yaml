@@ -2,11 +2,11 @@ version: "3.8"
 services:
   nacos:
     image: nacos/nacos-server:v2.2.0-slim
-    container_name: nacos-standalone-mysql
+    container_name: nacos-ry
     env_file:
-      - ../env/nacos-standlone-mysql.env
+      - ../env/nacos-standlone-mysql-ry.env
     volumes:
-      - ./standalone-logs/:/home/nacos/logs
+      - /Users/hayden/docker/nacos/nacos-ry:/home/nacos/logs
     ports:
       - "8848:8848"
       - "9848:9848"
@@ -16,15 +16,15 @@ services:
         condition: service_healthy
     restart: always
   mysql:
-    container_name: mysql-nacos
+    container_name: mysql-ry
     build:
       context: .
       dockerfile: ./image/mysql/8/Dockerfile
-    image: nacos-ry/mysql:8.0.32
+    image: mysql:8.0.32
     env_file:
       - ../env/mysql.env
     volumes:
-      - ./mysql:/var/lib/mysql
+      - /Users/hayden/docker/mysql/mysql-ry:/var/lib/mysql
     ports:
       - "3306:3306"
     healthcheck:
